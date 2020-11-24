@@ -109,6 +109,7 @@ _C.TRAIN.BATCH_SIZE = 32
 _C.INFER = CN()
 # Save prediction
 _C.INFER.SAVE_NAME = ""
+_C.INFER.TTA = False
 
 
 # ----------------------------------------

@@ -6,6 +6,7 @@ from tqdm import tqdm
 import os
 from cvcore.utils import save_checkpoint
 import pandas as pd
+import torchvision.transforms.functional as TF
 
 
 def valid_model(_print, cfg, model, valid_loader,
@@ -23,6 +24,9 @@ def valid_model(_print, cfg, model, valid_loader,
             image = image.cuda()
             lb = lb.cuda()
             output = model(image)
+            if cfg.INFER.TTA:
+                output += model(TF.vflip(image))
+                output += model(TF.hflip(image))
 
             preds.append(output.cpu())
             targets.append(lb.cpu())
@@ -50,7 +54,7 @@ def valid_model(_print, cfg, model, valid_loader,
         return score, best_metric
 
 
-def test_model(model, test_loader):
+def test_model(cfg, model, test_loader):
     model.eval()
 
     preds = []
@@ -60,7 +64,10 @@ def test_model(model, test_loader):
         for i, (image, name) in enumerate(tbar):
             image = image.cuda()
             output = model(image)
+            if cfg.INFER.TTA:
+                output += model(TF.vflip(image))
+                output += model(TF.hflip(image))
             output = torch.argmax(output.cpu(), 1).numpy()
             for n, o in zip(name, output):
                 preds.append([n, o])
-    pd.DataFrame(data=preds, columns=["image_id", "label"]).to_csv("submission.csv")
+    pd.DataFrame(data=preds, columns=["image_id", "label"]).to_csv("submission.csv", index=False)

@@ -103,7 +103,7 @@ def main(args, cfg):
                     valid_loader, valid_criterion,
                     accuracy_score, start_epoch)
     else:
-        test_model(model, test_loader)
+        test_model(cfg, model, test_loader)
 
 
 if __name__ == "__main__":
