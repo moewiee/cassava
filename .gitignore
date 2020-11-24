@@ -1,0 +1,10 @@
+.vscode/
+.ipynb_checkpoints/
+configs/
+logs/
+outputs/
+weights/
+*.ipynb
+*.sh
+*.csv
+__pycache__/
