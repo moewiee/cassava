@@ -2,7 +2,7 @@ import torch
 from torch.cuda.amp import autocast
 from tqdm import tqdm
 
-from cvcore.data import cutmix_data, mixup_data, mixup_criterion
+from cvcore.data import cutmix_data, mixup_data
 from cvcore.utils import AverageMeter
 from cvcore.solver import WarmupCyclicalLR, WarmupMultiStepLR
 
@@ -13,7 +13,6 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
     losses = AverageMeter()
     model.train()
     tbar = tqdm(train_loader)
-    y_a = y_b = lamb = None
 
     for i, (image, target) in enumerate(tbar):
         image = image.cuda()
@@ -21,16 +20,13 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
 
         # mixup/ cutmix
         if cfg.DATA.MIXUP.ENABLED:
-            image, y_a, y_b, lamb = mixup_data(image, target, alpha=cfg.DATA.MIXUP.ALPHA)
+            image = mixup_data(image, alpha=cfg.DATA.MIXUP.ALPHA)
         elif cfg.DATA.CUTMIX.ENABLED:
             image = cutmix_data(image, alpha=cfg.DATA.CUTMIX.ALPHA)
 
         output = model(image)
         with autocast():
-            if cfg.DATA.MIXUP.ENABLED:
-                loss = mixup_criterion(criterion, output, y_a, y_b, lamb)
-            else:
-                loss = criterion(output, target)
+            loss = criterion(output, target)
             # gradient accumulation
             loss = loss / cfg.SOLVER.GD_STEPS
         scaler.scale(loss).backward()

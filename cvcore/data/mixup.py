@@ -2,12 +2,12 @@ import numpy as np
 import torch
 import cv2
 
-def mixup_data(x, y, alpha=1.0, use_cuda=True):
+def mixup_data(x, alpha=1.0, use_cuda=True):
     """
     Returns mixed inputs, pairs of targets, and lambda.
     """
     if alpha > 0:
-        lamb = np.random.beta(alpha, alpha)
+        lamb = np.random.beta(alpha + 1., alpha)
     else:
         lamb = 1
 
@@ -18,8 +18,4 @@ def mixup_data(x, y, alpha=1.0, use_cuda=True):
         index = torch.randperm(batch_size)
 
     mixed_x = lamb * x + (1 - lamb) * x[index, :]
-    y_a, y_b = y, y[index]
-    return mixed_x, y_a, y_b, torch.tensor(lamb)
-
-def mixup_criterion(criterion, pred, y_a, y_b, lam):
-    return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
+    return mixed_x
