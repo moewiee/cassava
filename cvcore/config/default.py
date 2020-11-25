@@ -41,7 +41,6 @@ _C.DIRS.WEIGHTS = "./weights/"
 _C.DIRS.OUTPUTS = "./outputs/"
 # Training log folder
 _C.DIRS.LOGS = "./logs/"
-_C.DIRS.EMBEDDINGS = "./embeddings/"
 
 
 # ----------------------------------------

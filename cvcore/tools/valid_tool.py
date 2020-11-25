@@ -66,8 +66,10 @@ def test_model(cfg, model, test_loader):
             output = model(image)
             if cfg.INFER.TTA:
                 output += model(TF.vflip(image))
-                output += model(TF.hflip(image))
-            output = torch.argmax(output.cpu(), 1).numpy()
-            for n, o in zip(name, output):
-                preds.append([n, o])
-    pd.DataFrame(data=preds, columns=["image_id", "label"]).to_csv("submission.csv", index=False)
+                output += model(TF.hflip(image))            
+            label = torch.argmax(output.cpu(), 1).numpy()
+            for n, l, o in zip(name, label, output):
+                row = [n, l]
+                [row.append(oo.cpu().numpy()) for oo in o]
+                preds.append(row)
+    pd.DataFrame(data=preds, columns=["image_id", "label", "0", "1", "2", "3", "4"]).to_csv("submission.csv", index=False)
