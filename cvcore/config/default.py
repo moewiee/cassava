@@ -61,6 +61,7 @@ _C.DATA.INP_CHANNEL = 3
 # Train, Validation and Test CSV files
 _C.DATA.CSV = ""
 _C.DATA.TEST_CSV = ""
+_C.DATA.EXTERNAL = ""
 # For ImageFolder dataset style
 # TODO #
 # Dataset augmentations style (albumentations / randaug / augmix)

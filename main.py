@@ -5,7 +5,6 @@ import time
 
 import pandas as pd
 import numpy as np
-from pandas import test
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -20,6 +19,7 @@ from cvcore.model import build_model
 from cvcore.solver import make_optimizer, build_scheduler
 from cvcore.utils import setup_determinism, setup_logger, load_checkpoint
 from cvcore.tools import parse_args, train_loop, valid_model, copy_model, test_model
+from cvcore.losses import LabelSmoothingCrossEntropy
 
 scaler = GradScaler()
 torch.multiprocessing.set_sharing_strategy('file_system')
@@ -54,6 +54,9 @@ def main(args, cfg):
     if cfg.LOSS.NAME == "ce":
         valid_criterion = nn.CrossEntropyLoss().cuda()
         train_criterion = nn.CrossEntropyLoss().cuda()
+    if cfg.LOSS.NAME == "smooth-ce":
+        valid_criterion = nn.CrossEntropyLoss().cuda()
+        train_criterion = LabelSmoothingCrossEntropy().cuda()
 
     model = model.cuda()
     model = nn.DataParallel(model)
@@ -72,6 +75,9 @@ def main(args, cfg):
             cfg, "valid", valid_df["image_id"].values, valid_df["label"].values)
         if args.mode == "train":
             train_df = df[~df["fold"].isin([args.fold])]
+            if cfg.DATA.EXTERNAL:
+                external_df = pd.read_csv(cfg.DATA.EXTERNAL)
+                train_df = pd.concat([train_df, external_df])
             train_loader = make_dataloader(
                 cfg, "train", train_df["image_id"].values, train_df["label"].values)
     elif args.mode == "test":

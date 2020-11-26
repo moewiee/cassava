@@ -8,12 +8,10 @@ import numpy as np
 import torchvision.transforms.functional as TF
 import random
 
-from albumentations import Compose, HorizontalFlip, VerticalFlip, Normalize, Resize, \
-            RandomResizedCrop, MotionBlur, RandomBrightness, RandomContrast, OneOf, RandomGamma, \
-            CLAHE, Blur, CoarseDropout, GaussNoise, HueSaturationValue, ShiftScaleRotate, Transpose, \
-            ElasticTransform, IAAAdditiveGaussianNoise, IAASharpen, RandomBrightnessContrast, \
-            GridDistortion, RandomResizedCrop, OpticalDistortion, NoOp, MedianBlur, IAAEmboss, \
-            CenterCrop
+from albumentations import Compose, HorizontalFlip, VerticalFlip, Normalize, RandomResizedCrop, OneOf, \
+            Blur, CoarseDropout, GaussNoise, ShiftScaleRotate, ElasticTransform, IAAAdditiveGaussianNoise, \
+            Equalize, RandomBrightnessContrast, GridDistortion, RandomResizedCrop, OpticalDistortion, \
+            Posterize, MedianBlur, Solarize, CenterCrop, Resize         
 import albumentations.augmentations.functional as AF
 from albumentations.pytorch import ToTensor
 from albumentations.core.transforms_interface import ImageOnlyTransform
