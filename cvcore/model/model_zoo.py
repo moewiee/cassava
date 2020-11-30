@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from torch.cuda.amp import autocast
 import timm
 from timm.models.layers.adaptive_avgmax_pool import SelectAdaptivePool2d
+from timm.models.resnet import Bottleneck
 from torch.nn.functional import dropout
 import random
 
@@ -56,6 +57,14 @@ class EfficientNet(nn.Module):
         if self.cfg.MODEL.HYPER:
             self.num_features = backbone.num_features + self.block4[-1].bn3.num_features + \
                                 self.block5[-1].bn3.num_features
+        if self.cfg.MODEL.SELF_DISTILL:
+            self.bottleneck_b4 = Bottleneck(inplanes=self.block4[-1].bn3.num_features,
+                                            planes=int(self.block4[-1].bn3.num_features / 4))
+            self.bottleneck_b5 = Bottleneck(inplanes=self.block5[-1].bn3.num_features,
+                                            planes=int(self.block5[-1].bn3.num_features / 4))
+            self.fc_b4 = nn.Linear(self.block4[-1].bn3.num_features, self.cfg.MODEL.NUM_CLASSES)
+            self.fc_b5 = nn.Linear(self.block5[-1].bn3.num_features, self.cfg.MODEL.NUM_CLASSES)
+
         ### Baseline head ###
         if self.cfg.MODEL.CLS_HEAD == "linear":
             self.fc = nn.Linear(self.num_features, self.cfg.MODEL.NUM_CLASSES)
@@ -81,6 +90,9 @@ class EfficientNet(nn.Module):
         with autocast():
             b4, b5, x = self._features(x)
             x = self.global_pool(x)
+            if self.cfg.MODEL.SELF_DISTILL:
+                b4_logits = self.fc_b4(torch.flatten(self.global_pool(self.bottleneck_b4(b4)), 1))
+                b5_logits = self.fc_b5(torch.flatten(self.global_pool(self.bottleneck_b5(b5)), 1))
             if self.cfg.MODEL.HYPER:
                 b4 = self.global_pool(b4)
                 b5 = self.global_pool(b5)
@@ -89,7 +101,10 @@ class EfficientNet(nn.Module):
             if self.cfg.MODEL.DROPOUT > 0.:
                 x = torch.nn.functional.dropout(x, self.cfg.MODEL.DROPOUT, training=self.training)
             logits = self.fc(x)
-            return logits
+            if self.cfg.MODEL.SELF_DISTILL:
+                return logits, b4_logits, b5_logits
+            else:
+                return logits
 
 def build_model(cfg):
     model = None

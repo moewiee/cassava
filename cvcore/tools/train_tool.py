@@ -5,6 +5,8 @@ from tqdm import tqdm
 from cvcore.data import cutmix_data, mixup_data
 from cvcore.utils import AverageMeter
 from cvcore.solver import WarmupCyclicalLR, WarmupMultiStepLR
+from cvcore.losses import kd_loss_function
+import random
 
 
 def train_loop(_print, cfg, model, model_swa, train_loader,
@@ -23,10 +25,16 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
             image = mixup_data(image, alpha=cfg.DATA.MIXUP.ALPHA)
         elif cfg.DATA.CUTMIX.ENABLED:
             image = cutmix_data(image, alpha=cfg.DATA.CUTMIX.ALPHA)
-
-        output = model(image)
+        if cfg.MODEL.SELF_DISTILL:
+            output, output_aux1, output_aux2 = model(image)
+        else:
+            output = model(image)
         with autocast():
-            loss = criterion(output, target)
+            if cfg.MODEL.SELF_DISTILL:
+                loss = criterion(output, target) + criterion(output_aux1, target) + criterion(output_aux2, target)
+                # output_smtemp = torch.softmax(output / 4, 1)
+            else:
+                loss = criterion(output, target)
             # gradient accumulation
             loss = loss / cfg.SOLVER.GD_STEPS
         scaler.scale(loss).backward()
@@ -48,9 +56,9 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
             if i % cfg.SOLVER.SWA.FREQ == 0:
                 moving_average(model_swa, model, cfg.SOLVER.SWA.DECAY)
 
-    half = True if cfg.MODEL.NAME == "seriesnet" else False
     if model_swa is not None:
-        bn_update(train_loader, model_swa, half)
+        with torch.no_grad():
+            bn_update(train_loader, model_swa, False)
 
     _print("Train loss: %.5f, learning rate: %.6f" %
            (losses.avg, optimizer.param_groups[-1]['lr']))

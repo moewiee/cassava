@@ -5,7 +5,7 @@ import torch.nn.functional as F
 class LabelSmoothingCrossEntropy(nn.Module):
     def __init__(self):
         super(LabelSmoothingCrossEntropy, self).__init__()
-    def forward(self, x, target, smoothing=0.1):
+    def forward(self, x, target, smoothing=0.05):
         confidence = 1. - smoothing
         logprobs = F.log_softmax(x, dim=-1)
         nll_loss = -logprobs.gather(dim=-1, index=target.unsqueeze(1))

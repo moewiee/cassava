@@ -82,6 +82,8 @@ def main(args, cfg):
                 cfg, "train", train_df["image_id"].values, train_df["label"].values)
     elif args.mode == "test":
         test_df = pd.read_csv(cfg.DATA.TEST_CSV)
+        if "fold" in test_df.columns:
+            test_df = test_df[test_df["fold"] == args.fold]
         test_loader = make_dataloader(
                 cfg, "test", test_df["image_id"].values, None)
 

@@ -8,3 +8,5 @@ weights/
 *.sh
 *.csv
 __pycache__/
+*folds
+csv/

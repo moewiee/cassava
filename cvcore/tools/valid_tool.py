@@ -23,10 +23,14 @@ def valid_model(_print, cfg, model, valid_loader,
         for i, (image, lb) in enumerate(tbar):
             image = image.cuda()
             lb = lb.cuda()
-            output = model(image)
-            if cfg.INFER.TTA:
-                output += model(TF.vflip(image))
-                output += model(TF.hflip(image))
+            if cfg.MODEL.SELF_DISTILL:
+                output, output_aux1, output_aux2 = model(image)
+                output = output + output_aux1 * 0.3 + output_aux2 * 0.7
+            else:
+                output = model(image)
+                if cfg.INFER.TTA:
+                    output += model(TF.vflip(image))
+                    output += model(TF.hflip(image))
 
             preds.append(output.cpu())
             targets.append(lb.cpu())

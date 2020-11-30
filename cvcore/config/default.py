@@ -53,7 +53,8 @@ _C.DATA.DEBUG = False
 # Datasets problem (multiclass / multilabel)
 _C.DATA.TYPE = ""
 # Image size for training
-_C.DATA.IMG_SIZE = (224, 224)
+_C.DATA.IMG_SIZE = (600, 800)
+_C.DATA.VALID_DEF_SIZE = False
 # Image input channel for training
 _C.DATA.INP_CHANNEL = 3
 # For CSV loading dataset style
@@ -170,6 +171,7 @@ _C.MODEL.DROPOUT = 0.
 _C.MODEL.DROPPATH = 0.
 # Use hypercolumns
 _C.MODEL.HYPER = False
+_C.MODEL.SELF_DISTILL = False
 
 def get_cfg_defaults():
   """Get a yacs CfgNode object with default values for my_project."""

@@ -16,33 +16,12 @@ import albumentations.augmentations.functional as AF
 from albumentations.pytorch import ToTensor
 from albumentations.core.transforms_interface import ImageOnlyTransform
 
-class VerticalCut(ImageOnlyTransform):
-    def apply(self, image, fill_value=0, holes=(), **params):
-        return AF.cutout(image, holes, fill_value)
-
-    def get_params_dependent_on_targets(self, params):
-        img = params["image"]
-        height, width = img.shape[:2]
-
-        holes = []
-        col = random.randint(0, 4)
-        col_width = int(width // 5)
-        holes.append((col*col_width, 0, (col+1)*col_width, height))
-
-        return {"holes": holes}
-
-    @property
-    def targets_as_params(self):
-        return ["image"]
-
-    def get_transform_init_args_names(self):
-        return ("num_holes", "max_h_size", "max_w_size")
 
 class AlbuAugment:
-    def __init__(self):
+    def __init__(self, cfg):
         transformation = []
         transformation += [
-            RandomResizedCrop(600, 800, scale=(0.2, 1.0)),
+            RandomResizedCrop(cfg.DATA.IMG_SIZE[0], cfg.DATA.IMG_SIZE[1], scale=(0.2, 1.0)),
             ShiftScaleRotate(),
             RandomBrightnessContrast(),
             HorizontalFlip(),
@@ -65,8 +44,11 @@ class AlbuAugment:
         return self.transform(image=x)['image']
 
 class to_tensor_albu:
-    def __init__(self):
-        transformation = []
+    def __init__(self, cfg):
+        if cfg.DATA.VALID_DEF_SIZE:
+            transformation = [Resize(600, 800)]
+        else:
+            transformation = [Resize(cfg.DATA.IMG_SIZE[0], cfg.DATA.IMG_SIZE[1])]
         transformation += [Normalize(),
                            ToTensor()]
         self.transform = Compose(transformation)

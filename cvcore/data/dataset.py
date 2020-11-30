@@ -46,8 +46,8 @@ class ImageLabelDataset(Dataset):
                 m=self.cfg.DATA.RANDAUG.M, random_magnitude=self.cfg.DATA.RANDAUG.RANDOM_MAGNITUDE)
             self.to_tensor = to_tensor_randaug()
         elif self.cfg.DATA.AUGMENT == "albumentations":
-            self.transform = AlbuAugment()
-            self.to_tensor = to_tensor_albu()
+            self.transform = AlbuAugment(self.cfg)
+            self.to_tensor = to_tensor_albu(self.cfg)
 
     def __len__(self):
         return len(self.images)
