@@ -149,6 +149,8 @@ _C.LOSS = CN()
 
 # Loss function (ce / focal / dice)
 _C.LOSS.NAME = "ce"
+_C.LOSS.MAIN = 1.
+_C.LOSS.SOFT = 1.
 
 
 # ----------------------------------------

@@ -26,15 +26,15 @@ class AlbuAugment:
             RandomBrightnessContrast(),
             HorizontalFlip(),
             VerticalFlip(),
-            OneOf([
-                GridDistortion(),
-                OpticalDistortion(),
-                ElasticTransform(approximate=True)], p=0.8),
-            OneOf([
-                IAAAdditiveGaussianNoise(),
-                GaussNoise(),
-                MedianBlur(blur_limit=3),
-                Blur(blur_limit=3)], p=0.8),
+#            OneOf([
+#                GridDistortion(),
+#                OpticalDistortion(),
+#                ElasticTransform(approximate=True)], p=0.8),
+#            OneOf([
+#                IAAAdditiveGaussianNoise(),
+#                GaussNoise(),
+#                MedianBlur(blur_limit=3),
+#                Blur(blur_limit=3)], p=0.8),
             CoarseDropout(max_holes=2, max_height=36, max_width=36)
         ]
 

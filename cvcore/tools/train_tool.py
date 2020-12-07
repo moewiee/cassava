@@ -34,7 +34,7 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
             if cfg.MODEL.SELF_DISTILL:
                 loss = criterion(output, target) + criterion(output_aux1, target) + criterion(output_aux2, target)
             else:
-                loss = criterion(output, target) + soft_criterion(output, soft_target)
+                loss = criterion(output, target) * cfg.LOSS.MAIN + soft_criterion(output, soft_target) * cfg.LOSS.SOFT
             # gradient accumulation
             loss = loss / cfg.SOLVER.GD_STEPS
         scaler.scale(loss).backward()
