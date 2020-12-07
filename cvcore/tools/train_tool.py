@@ -10,15 +10,16 @@ import random
 
 
 def train_loop(_print, cfg, model, model_swa, train_loader,
-               criterion, optimizer, scheduler, epoch, scaler):
+               criterion, optimizer, scheduler, epoch, scaler, soft_criterion=None):
     _print(f"\nEpoch {epoch + 1}")
     losses = AverageMeter()
     model.train()
     tbar = tqdm(train_loader)
 
-    for i, (image, target) in enumerate(tbar):
+    for i, (image, target, soft_target) in enumerate(tbar):
         image = image.cuda()
         target = target.cuda()
+        soft_target = soft_target.cuda()
 
         # mixup/ cutmix
         if cfg.DATA.MIXUP.ENABLED:
@@ -32,9 +33,8 @@ def train_loop(_print, cfg, model, model_swa, train_loader,
         with autocast():
             if cfg.MODEL.SELF_DISTILL:
                 loss = criterion(output, target) + criterion(output_aux1, target) + criterion(output_aux2, target)
-                # output_smtemp = torch.softmax(output / 4, 1)
             else:
-                loss = criterion(output, target)
+                loss = criterion(output, target) + soft_criterion(output, soft_target)
             # gradient accumulation
             loss = loss / cfg.SOLVER.GD_STEPS
         scaler.scale(loss).backward()
@@ -103,7 +103,7 @@ def bn_update(loader, model, half):
     model.apply(lambda module: _get_momenta(module, momenta))
     n = 0
     tbar = tqdm(loader)
-    for i, (input, _) in enumerate(tbar):
+    for i, (input, _, _) in enumerate(tbar):
         if half: input = input.cuda(non_blocking=True).half()
         else: input = input.cuda(non_blocking=True)
         input_var = torch.autograd.Variable(input)

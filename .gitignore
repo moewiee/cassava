@@ -10,3 +10,4 @@ weights/
 __pycache__/
 *folds
 csv/
+*.pth

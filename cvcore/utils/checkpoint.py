@@ -17,7 +17,8 @@ def save_checkpoint(state, is_best, root, filename):
 
 def load_checkpoint(args, log, model):
     start_epoch = 0
-    best_metric = 0.
+    # best_metric = 0.
+    best_metric = np.inf
     if args.load != "":
         if os.path.isfile(args.load):
             log(f"=> loading checkpoint {args.load}")

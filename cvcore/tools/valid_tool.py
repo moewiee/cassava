@@ -20,7 +20,7 @@ def valid_model(_print, cfg, model, valid_loader,
     tbar = tqdm(valid_loader)
 
     with torch.no_grad():
-        for i, (image, lb) in enumerate(tbar):
+        for i, (image, lb, soft_lb) in enumerate(tbar):
             image = image.cuda()
             lb = lb.cuda()
             if cfg.MODEL.SELF_DISTILL:
@@ -44,8 +44,10 @@ def valid_model(_print, cfg, model, valid_loader,
     _print(f"VAL LOSS: {val_loss:.5f}, SCORE: {score:.5f}")
     # checkpoint
     if checkpoint:
-        is_best = score > best_metric
-        best_metric = max(score, best_metric)
+        # is_best = score > best_metric
+        # best_metric = max(score, best_metric)
+        is_best = val_loss < best_metric
+        best_metric = min(val_loss, best_metric)
         save_dict = {"epoch": epoch + 1,
                      "arch": cfg.NAME,
                      "state_dict": model.state_dict(),
@@ -72,6 +74,8 @@ def test_model(cfg, model, test_loader):
                 output += model(TF.vflip(image))
                 output += model(TF.hflip(image))            
             label = torch.argmax(output.cpu(), 1).numpy()
+            if cfg.INFER.INFO == "softmax":
+                output = torch.nn.functional.softmax(output, 1)
             for n, l, o in zip(name, label, output):
                 row = [n, l]
                 [row.append(oo.cpu().numpy()) for oo in o]

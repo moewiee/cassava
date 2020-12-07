@@ -22,9 +22,10 @@ import torchvision
 from torch.utils.data import DataLoader, Subset
 import glob
 import random
+import PIL
 
 class ImageLabelDataset(Dataset):
-    def __init__(self, images, label, mode='train', cfg=None):
+    def __init__(self, images, label, soft_label=None, mode='train', cfg=None):
         self.cfg = cfg
         self.images = images
         self.mode = mode
@@ -39,6 +40,7 @@ class ImageLabelDataset(Dataset):
 
         if self.mode in ("train", "valid"):
             self.label = label
+            self.soft_label = soft_label
 
         assert self.cfg.DATA.AUGMENT in ("randaug", "albumentations")
         if self.cfg.DATA.AUGMENT == "randaug":
@@ -56,6 +58,7 @@ class ImageLabelDataset(Dataset):
         lb = None
         if self.mode in ("train", "valid"):
             lb = self.label[idx]
+            soft_lb = torch.Tensor(self.soft_label[idx])
             if self.cfg.DATA.TYPE == "multilabel":
                 lb = lb.astype(np.float32)
                 if not isinstance(lb, list):
@@ -71,22 +74,34 @@ class ImageLabelDataset(Dataset):
         if self.mode == "train":
             if isinstance(self.transform, AlbuAugment):
                 image = np.asarray(image)
+            elif isinstance(self.transform, RandAugment):
+                image = image.resize(self.cfg.DATA.IMG_SIZE, resample=PIL.Image.BILINEAR)
             image = self.transform(image)
             image = self.to_tensor(image)
-            return image, lb
+            return image, lb, soft_lb
         elif self.mode == "valid":
             if isinstance(self.transform, AlbuAugment):
                 image = np.asarray(image)
+            elif isinstance(self.transform, RandAugment):
+                if self.cfg.DATA.VALID_DEF_SIZE:
+                    image = image.resize((600, 800), resample=PIL.Image.BILINEAR)
+                else:
+                    image = image.resize(self.cfg.DATA.IMG_SIZE, resample=PIL.Image.BILINEAR)
             image = self.to_tensor(image)
-            return image, lb
+            return image, lb, soft_lb
         else:
             if isinstance(self.transform, AlbuAugment):
                 image = np.asarray(image)
+            elif isinstance(self.transform, RandAugment):                
+                if self.cfg.DATA.VALID_DEF_SIZE:
+                    image = image.resize((600, 800), resample=PIL.Image.BILINEAR)
+                else:
+                    image = image.resize(self.cfg.DATA.IMG_SIZE, resample=PIL.Image.BILINEAR)
             image = self.to_tensor(image)
             return image, sop_study
 
-def make_image_label_dataloader(cfg, mode, images, labels):
-    dataset = ImageLabelDataset(images, labels, mode=mode, cfg=cfg)
+def make_image_label_dataloader(cfg, mode, images, labels, soft_label):
+    dataset = ImageLabelDataset(images, labels, soft_label, mode=mode, cfg=cfg)
     if cfg.DATA.DEBUG:
         dataset = Subset(dataset,
                          np.random.choice(np.arange(len(dataset)), 500))

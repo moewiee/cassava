@@ -1,2 +1,2 @@
-from .smooth_ce import LabelSmoothingCrossEntropy
+from .smooth_ce import LabelSmoothingCrossEntropy, SoftCrossEntropy
 from .kd import kd_loss_function

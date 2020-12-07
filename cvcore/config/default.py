@@ -111,6 +111,7 @@ _C.INFER = CN()
 # Save prediction
 _C.INFER.SAVE_NAME = ""
 _C.INFER.TTA = False
+_C.INFER.INFO = "logits"
 
 
 # ----------------------------------------

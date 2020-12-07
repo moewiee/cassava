@@ -13,3 +13,10 @@ class LabelSmoothingCrossEntropy(nn.Module):
         smooth_loss = -logprobs.mean(dim=-1)
         loss = confidence * nll_loss + smoothing * smooth_loss
         return loss.mean()
+
+class SoftCrossEntropy(nn.Module):
+    def __init__(self):
+        super(SoftCrossEntropy, self).__init__()
+    def forward(self, x, target):
+        logprobs = F.log_softmax(x, dim = 1)
+        return  -(target * logprobs).sum() / x.shape[0]
