@@ -1,1 +1,85 @@
-<mxfile host="app.diagrams.net" modified="2022-11-09T08:33:17.326Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" version="20.5.3" etag="lEcLYcsWEbxFXLVKsBJg" type="github"><diagram id="_6xEb2YgU9h2wNTgZB5N">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-11-09T08:44:38.755Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="BtyzHPlSCHWG9WFFJZc4" version="20.5.3" type="github">
+  <diagram id="_6xEb2YgU9h2wNTgZB5N" name="Trang-1">
+    <mxGraphModel dx="1422" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-1" target="i1V4hk6j7oLagfR8s3Li-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-1" value="Input Video" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-5" target="i1V4hk6j7oLagfR8s3Li-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-5" value="Frame Extraction" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-7" target="i1V4hk6j7oLagfR8s3Li-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-7" value="4-D Frame Sequence (NxHxWxC)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-9" target="i1V4hk6j7oLagfR8s3Li-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-9" value="Frame Preprocessing&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-11" target="i1V4hk6j7oLagfR8s3Li-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-11" value="4-D Frame Sequence Tensor&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="950" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-13" target="i1V4hk6j7oLagfR8s3Li-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-13" value="Classification Model (Swin)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-15" target="i1V4hk6j7oLagfR8s3Li-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-15" value="Embedding Sequence Tensor&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-17" target="i1V4hk6j7oLagfR8s3Li-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-17" value="Sliding Window Sequence Extractor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-19" target="i1V4hk6j7oLagfR8s3Li-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-19" value="2-D Frame Temporal Embedding Matrix" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-21" target="i1V4hk6j7oLagfR8s3Li-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-21" value="LSTM Classifcation Model" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="950" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-23" target="i1V4hk6j7oLagfR8s3Li-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-23" value="Frame Liveness Prediction" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="i1V4hk6j7oLagfR8s3Li-25" target="i1V4hk6j7oLagfR8s3Li-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-25" value="Frame To Video Predictor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="i1V4hk6j7oLagfR8s3Li-27" value="Output Liveness Prediction" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
