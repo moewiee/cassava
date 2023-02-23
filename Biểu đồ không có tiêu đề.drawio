@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-02-23T00:53:24.451Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="TW3UJgGXqZ8Wfhjnf39g" version="20.8.23" type="github">
+<mxfile host="app.diagrams.net" modified="2023-02-23T00:57:30.401Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="uW91AmmohCUNjsPa4NP_" version="20.8.23" type="github">
   <diagram id="ewztFGT2zGTS9t8cP0Wc" name="Trang-1">
-    <mxGraphModel dx="3728" dy="1148" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4247" dy="1435" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -200,7 +200,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="eXNG1eiRY6DkNwFddk69-61" value="Key-Value Classification Block" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=22;" edge="1" parent="1" source="eXNG1eiRY6DkNwFddk69-61" target="fZ5gz3fBRrznooZwM4yi-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eXNG1eiRY6DkNwFddk69-61" value="Word Merger Block" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="520" y="610" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="fZ5gz3fBRrznooZwM4yi-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-1" target="eXNG1eiRY6DkNwFddk69-2">
@@ -259,8 +262,50 @@
         <mxCell id="fZ5gz3fBRrznooZwM4yi-19" value="Image Patch" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
           <mxGeometry x="-680" y="679.5" width="120" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-21" target="fZ5gz3fBRrznooZwM4yi-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="fZ5gz3fBRrznooZwM4yi-21" value="Text Recognizer" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="-840" y="678.5" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-23" target="fZ5gz3fBRrznooZwM4yi-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-23" value="Text" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="-1000" y="679.5" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=22;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-25" target="fZ5gz3fBRrznooZwM4yi-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-25" value="&lt;b style=&quot;font-size: 22px;&quot;&gt;+&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="-955" y="760" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.422;exitY=0.972;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-19" target="fZ5gz3fBRrznooZwM4yi-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-930" y="720" as="sourcePoint" />
+            <mxPoint x="-930" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-28" value="Words DC" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="-1150" y="760" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-14" target="fZ5gz3fBRrznooZwM4yi-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-619" y="719" as="sourcePoint" />
+            <mxPoint x="-915" y="785" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-300" y="775" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-31" value="Key-Value Classification Block" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="730" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=22;" edge="1" parent="1" source="fZ5gz3fBRrznooZwM4yi-32" target="fZ5gz3fBRrznooZwM4yi-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fZ5gz3fBRrznooZwM4yi-32" value="WordGroup DC" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="670" width="120" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
